@@ -1,8 +1,18 @@
-# WRAN
-Wide Residual Attention Network
+PyTorch training code for Wide Residual Networks
 
-Step 1:
+# Requirements
+
+Install requirements:
+
+```
 pip install -r requirements.txt
+```
 
-Step 2:
-python main.py --save ./logs/resnet_$RANDOM$RANDOM --depth 28 --width 10 --ngpu 4 --gpu_id 0,1,2,3
+
+# Howto
+
+Train WRN-28-10 on 4 GPUs:
+
+```
+python main.py --save ./logs/resnet_$RANDOM$RANDOM --depth 28 --width 10 --ngpu 1 --gpu_id 0
+```

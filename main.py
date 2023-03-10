@@ -23,7 +23,7 @@ parser = argparse.ArgumentParser(description='Wide Residual Networks')
 parser.add_argument('--model', default='resnet', type=str)
 parser.add_argument('--depth', default=16, type=int)
 parser.add_argument('--width', default=1, type=float)
-parser.add_argument('--dataset', default='CIFAR100', type=str)
+parser.add_argument('--dataset', default='CIFAR10', type=str)
 parser.add_argument('--dataroot', default='.', type=str)
 parser.add_argument('--dtype', default='float', type=str)
 parser.add_argument('--groups', default=1, type=int)
@@ -75,6 +75,8 @@ def main():
     num_classes = 10 if opt.dataset == 'CIFAR10' else 100
 
     torch.manual_seed(opt.seed)
+    torch.cuda.empty_cache()
+    os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
     os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpu_id
 
     def create_iterator(mode):
@@ -113,7 +115,7 @@ def main():
     timer_test = tnt.meter.TimeMeter('s')
 
     if not os.path.exists(opt.save):
-        os.mkdir("..//CIFAR 100//opt.save")
+        os.mkdir("./opt.save")
 
     def h(sample):
         inputs = cast(sample[0], opt.dtype)
